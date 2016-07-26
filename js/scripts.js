@@ -1,14 +1,16 @@
-// Set messages after game over. - done
+// Set messages after game over. - DONE
 // The table/game looks like Rob made it. Change this
 // What about those 11, 12, 13s?
 // What about aces?
-// The player can hit forever? - done
+// The player can hit forever? - DONE
 // There is no win counter / bet system
-// There is no 'deck' to draw from.
-// The cards aren't red or black like they should / could be
-// The cards are lame. Find images.
+// There is no 'deck' to draw from. - DONE
+// The cards aren't red or black like they should / could be - DONE
+// The cards are lame. Find images. - DONE
 // There is no delay on showing the cards ... it's instant
 // You can see the dealer's second card on deal. That's unfair to the house.
+// make a win counter for dealer / player
+// better message styling
 
 // 1. When the user clicks deal, deal.
 var theDeck = [];
@@ -146,8 +148,8 @@ function placeCard(who, where, cardToPlace){
 	var classSelector = '.'+who+'-cards .card-'+where;
 	
 	// Write logic to fix the 11, 12, 13 issue
-
-	$(classSelector).html(cardToPlace);
+	var cardImages = '<img src="images/'+cardToPlace+'.png">';
+	$(classSelector).html(cardImages);
 }
 
 
