@@ -1,3 +1,15 @@
+// Set messages after game over. - done
+// The table/game looks like Rob made it. Change this
+// What about those 11, 12, 13s?
+// What about aces?
+// The player can hit forever? - done
+// There is no win counter / bet system
+// There is no 'deck' to draw from.
+// The cards aren't red or black like they should / could be
+// The cards are lame. Find images.
+// There is no delay on showing the cards ... it's instant
+// You can see the dealer's second card on deal. That's unfair to the house.
+
 // 1. When the user clicks deal, deal.
 var theDeck = [];
 var playersHand = [];
@@ -9,7 +21,9 @@ $(document).ready(function(){
 	$('.deal-button').click(function(){
 		createDeck();  // run a function that creates an array of 1h to 13c
 		shuffleDeck(); // shuffle the deck
-		console.log(theDeck);
+
+		// remove message
+		document.getElementById('message').innerHTML = "";
 
 		// Push onto the playersHand array the new card. Then, place it in the DOM.
 		playersHand.push(theDeck[0]);
@@ -43,8 +57,12 @@ $(document).ready(function(){
 			}
 			placeCard('player', slotForNewCard, theDeck[topOfTheDeck]);
 			playersHand.push(theDeck[topOfTheDeck]);
-			calculateTotal(playersHand, 'player');
+			var playersTotal = calculateTotal(playersHand, 'player');
 			topOfTheDeck++;
+			
+			if((playersTotal > 21) || (playersTotal === 21)){
+				checkWin();
+			}
 		}
 	);
 	
@@ -73,10 +91,55 @@ $(document).ready(function(){
 			checkWin();
 	});
 
+	$('.reset-button').click(function(){
+		reset();
+	});
+
 });
 
 function checkWin(){
-	alert("Game over");
+	// Get player total
+	var playersTotal = calculateTotal(playersHand, 'player');
+	// Get dealer total
+	var dealersTotal = calculateTotal(dealersHand, 'dealer');
+
+	if(playersTotal === 21){
+		document.getElementById('message').innerHTML = "Blackjack! You win this round!";
+		// player wins
+	}else if(dealersTotal === 21){
+		document.getElementById('message').innerHTML = "Aw man, the house got blackjack. Time for a new hand.";
+		// dealer wins
+	}else if(playersTotal > 21){
+		document.getElementById('message').innerHTML = "Oh, good try, but you went over 21. House wins.";
+		// player has busted
+		// set a message somewhere that says this
+	}else if(dealersTotal > 21){
+		document.getElementById('message').innerHTML = "The dealer went over 21, you win!";
+		// dealer has busted
+		// set a message somewhere that says this
+	}else{
+		// neither player has more than 21
+		if(playersTotal > dealersTotal){
+			document.getElementById('message').innerHTML = "Neither of you have blackjack, but you're closer. That's a win!";
+			// player won. say this somewhere
+		}else if(dealersTotal > playersTotal){
+			document.getElementById('message').innerHTML = "Neither of you have blackjack, but the dealer's closer. The house wins.";
+		 	// dealer won. say this somewhere
+		}else{
+			document.getElementById('message').innerHTML = "Looks like nobody won and you tied. Time for a new hand."
+			// push. tie. say this somewhere
+		}
+	}
+	// disable buttons
+	disableAllBtns();
+}
+
+function disableAllBtns(){
+	var buttons = document.getElementsByClassName("button");
+	for(i=0; i < buttons.length; i++){
+		buttons[i].classList.remove('active');
+		buttons[i].classList.add('hidden');
+	}
 }
 
 function placeCard(who, where, cardToPlace){
@@ -97,6 +160,7 @@ function createDeck(){
 	for(var s=0; s<suits.length; s++){
 		for(var c=1; c<=13; c++){
 			theDeck.push(c+suits[s]);
+			 console.log(theDeck);
 		}
 	}
 }
@@ -129,4 +193,43 @@ function calculateTotal(hand, whosTurn){
 	$(elementToUpdate).text(total);
 
 	return total;
+}
+
+function reset(){
+	//empty the deck
+	//reset the place in the deck
+	//reset the player's total cards
+	//reset the dealer's total cards
+	//reset the player's hand array
+	//reset the dealer's hand array
+	//reset the message
+	//reset all the cards (divs and empty class)
+	theDeck = [];
+	
+	shuffleDeck();
+	
+	playersHand = [];
+	var playersTotal = calculateTotal(playersHand, 'player');
+	
+	dealersHand = [];
+	var dealersTotal = calculateTotal(dealersHand, 'dealer');
+
+	document.getElementById('message').innerHTML = "Are you feeling lucky, punk?";
+
+	var cards = document.getElementsByClassName('card');
+	for(var i=0; i < cards.length; i++){
+		cards[i].classList.add('empty');
+		cards[i].innerHTML = " ";
+	}
+
+	// reset player and dealer totals
+	document.getElementsByClassName('dealer-total-number').text = 0;
+	document.getElementsByClassName('player-total-number').text = 0;
+
+	// reset buttons
+	var buttons = document.getElementsByClassName("button");
+	for(var i = 0; i < buttons.length; i++){
+		buttons[i].classList.remove('hidden');
+		buttons[i].classList.add('active');	
+	}
 }

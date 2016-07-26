@@ -1,3 +1,8 @@
+.deck-wrapper img{
+	height: 120px;
+	border-radius: 5px;
+}
+
 .the-table{
 	background-color: green;
 	border: 5px solid #663300;
@@ -8,11 +13,17 @@
 
 .card{
 	height: 120px;
-	background-color: #fff;
 	color: black;
 	margin: 5px;
 	width: 14%;
+	background-image: url("../images/deck.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	padding:0px;
+	border-radius: 5px;
+
 }
+
 
 .dealer-total, .player-total{
 	color: white;
@@ -23,6 +34,15 @@
 .dealer-total-number, .player-total-number{
 	display: block;
 	text-align: center;
+}
+
+.message-wrapper{
+	display: block;
+	text-align: center;
+	height: 30px;
+	width: 100%;
+	background-color: red;
+	color: white;
 }
 
 .player-actions button{
