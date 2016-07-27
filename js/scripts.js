@@ -1,13 +1,13 @@
 // Set messages after game over. - DONE
 // The table/game looks like Rob made it. Change this - DONE
-// What about those 11, 12, 13s?
+// What about those 11, 12, 13s? - NOT AN ISSUE
 // What about aces? - DONE
 // The player can hit forever? - DONE
-// There is no win counter / bet system
+// There is no win counter / bet system - DONE
 // There is no 'deck' to draw from. - DONE
 // The cards aren't red or black like they should / could be - DONE
 // The cards are lame. Find images. - DONE
-// There is no delay on showing the cards ... it's instant
+// There is no delay on showing the cards ... it's instant - DONE
 // You can see the dealer's second card on deal. That's unfair to the house.
 // make a win counter for dealer / player - DONE
 // better message styling - DONE
@@ -18,31 +18,108 @@ var playersHand = [];
 var dealersHand = [];
 var topOfTheDeck = 4;
 
+var bet = 0;
+var balance = 100;
+
+var betSubmit = false;
+
+
 $(document).ready(function(){
 
+	$('.add-balance-1').click(function(){
+		bet++;
+		$('.bet-amount').text(bet);
+		balance--;
+		$('.bank-balance').text(balance);
+	});
+
+	$('.add-balance-5').click(function(){
+		bet+=5;
+		$('.bet-amount').text(bet);
+		balance-=5;
+		$('.bank-balance').text(balance);
+	});
+
+	$('.add-balance-10').click(function(){
+		bet+=10;
+		$('.bet-amount').text(bet);
+		balance-=10;
+		$('.bank-balance').text(balance);
+	});
+
+	$('.add-balance-20').click(function(){
+		bet+=20;
+		$('.bet-amount').text(bet);
+		balance-=20;
+		$('.bank-balance').text(balance);
+	});
+
+	$('.subtract-button-1').click(function(){
+		bet--;
+		$('.bet-amount').text(bet);
+		balance++;
+		$('.bank-balance').text(balance);
+	});
+
+	$('.subtract-button-5').click(function(){
+		bet-=5;
+		$('.bet-amount').text(bet);
+		balance+=5;
+		$('.bank-balance').text(balance);
+	});
+
+	$('.subtract-button-10').click(function(){
+		bet-=10;
+		$('.bet-amount').text(bet);
+		balance+=10;
+		$('.bank-balance').text(balance);
+	});
+
+	$('.subtract-button-20').click(function(){
+		bet-=20;
+		$('.bet-amount').text(bet);
+		balance+=20;
+		$('.bank-balance').text(balance);
+	});
+
+	$('.bet-button').click(function(){
+		betSubmit = true;
+		$('.deal-button, .hit-button, .stand-button').removeAttr("disabled");
+		$('.subtract-button-20, .subtract-button-10, .subtract-button-5, .subtract-button-1, .add-balance-20, .add-balance-5, .add-balance-10, .add-balance-1').hide();
+	});
+
 	$('.deal-button').click(function(){
-		createDeck();  // run a function that creates an array of 1h to 13c
-		shuffleDeck(); // shuffle the deck
+		if(betSubmit == true){
+			createDeck();  // run a function that creates an array of 1h to 13c
+			shuffleDeck(); // shuffle the deck
 
-		// remove reset message
-		document.getElementById('message').innerHTML = "";
+			// remove reset message
+			document.getElementById('message').innerHTML = "";
 
-		// Push onto the playersHand array the new card. Then, place it in the DOM.
-		playersHand.push(theDeck[0]);
-		placeCard('player', 'one', theDeck[0]);
-		
-		playersHand.push(theDeck[2]);
-		placeCard('player', 'two', theDeck[2]);
-		
-		dealersHand.push(theDeck[1]);
-		placeCard('dealer', 'one', theDeck[1]);
-		
-		dealersHand.push(theDeck[3]);
-		placeCard('dealer', 'two', theDeck[3]);
+			// Push onto the playersHand array the new card. Then, place it in the DOM.
+			playersHand.push(theDeck[0]);
+			setTimeout(function(){
+				placeCard('player', 'one', theDeck[0]);
+			}, 500);
+			
+			playersHand.push(theDeck[2]);
+			setTimeout(function(){
+				placeCard('player', 'two', theDeck[2]);
+			}, 1000);
+			
+			dealersHand.push(theDeck[1]);
+			setTimeout(function(){
+				placeCard('dealer', 'one', theDeck[1]);
+			}, 1500);	
+			
+			dealersHand.push(theDeck[3]);
+			setTimeout(function(){
+				placeCard('dealer', 'two', theDeck[3]);
+			}, 2000);
 
-		calculateTotal(playersHand, 'player');
-		calculateTotal(dealersHand, 'dealer');
-
+			calculateTotal(playersHand, 'player');
+			calculateTotal(dealersHand, 'dealer');
+		}
 	});	
 
 	
@@ -58,14 +135,16 @@ $(document).ready(function(){
 			}else if(playersHand.length == 5){
 				slotForNewCard = "six";
 			}
-			placeCard('player', slotForNewCard, theDeck[topOfTheDeck]);
-			playersHand.push(theDeck[topOfTheDeck]);
-			var playersTotal = calculateTotal(playersHand, 'player');
-			topOfTheDeck++;
-			
-			if((playersTotal > 21) || (playersTotal === 21)){
-				checkWin();
-			}
+			setTimeout(function(){
+				placeCard('player', slotForNewCard, theDeck[topOfTheDeck]);
+				playersHand.push(theDeck[topOfTheDeck]);
+				var playersTotal = calculateTotal(playersHand, 'player');
+				topOfTheDeck++;
+				
+				if((playersTotal > 21) || (playersTotal === 21)){
+					checkWin();
+				}
+			}, 500);
 		}
 	);
 	
@@ -88,14 +167,18 @@ $(document).ready(function(){
 				 dealersHand.push(theDeck[topOfTheDeck]);
 				 dealerTotal = calculateTotal(dealersHand, 'dealer');
 				 topOfTheDeck++;
-			}
 			// Dealer has at least 17. Check to see who won
-			checkWin();
+		}
+		checkWin();		
 	});
 
 	$('.reset-button').click(function(){
 		reset();
 	});
+
+	if($('.bank-balance').text <= 0){
+		$('.message').html("You should probably quit while you're ahead. The house always wins in the end.")
+	}
 
 });
 
@@ -104,10 +187,13 @@ function checkWin(){
 	var playersTotal = calculateTotal(playersHand, 'player');
 	// Get dealer total
 	var dealersTotal = calculateTotal(dealersHand, 'dealer');
+	
 
 	if(playersTotal === 21){
 		document.getElementById('message').innerHTML = "Blackjack! You win this round!";
 		document.getElementById('playerWin').innerHTML++;
+		balance += bet + bet;
+		$('.bank-balance').text(balance);
 		// player wins
 	}else if(dealersTotal === 21){
 		document.getElementById('message').innerHTML = "Aw man, the house got blackjack. Time for a new hand.";
@@ -121,6 +207,8 @@ function checkWin(){
 	}else if(dealersTotal > 21){
 		document.getElementById('message').innerHTML = "The dealer went over 21, you win!";
 		document.getElementById('playerWin').innerHTML++;
+		balance += bet + bet;
+		$('.bank-balance').text(balance);
 		// dealer has busted
 		// set a message somewhere that says this
 	}else{
@@ -128,6 +216,8 @@ function checkWin(){
 		if(playersTotal > dealersTotal){
 			document.getElementById('message').innerHTML = "Neither of you have blackjack, but you're closer. That's a win!";
 			document.getElementById('playerWin').innerHTML++;
+			balance += bet + bet;
+		$('.bank-balance').text(balance);
 			// player won. say this somewhere
 		}else if(dealersTotal > playersTotal){
 			document.getElementById('message').innerHTML = "Neither of you have blackjack, but the dealer's closer. The house wins.";
@@ -152,10 +242,17 @@ function disableAllBtns(){
 
 function placeCard(who, where, cardToPlace){
 	var classSelector = '.'+who+'-cards .card-'+where;
-	
-	// Write logic to fix the 11, 12, 13 issue
+
 	var cardImages = '<img src="images/'+cardToPlace+'.png">';
-	$(classSelector).html(cardImages);
+	
+	// $(classSelector).html(cardImages);
+	$(classSelector).delay(200).fadeOut(500, function(){
+		$(this).html(cardImages).fadeIn(500);
+	})
+	// $(classSelector).setTimeout(function(){addClass("appear") 500});
+	// $(classSelector).addClass("appear");
+
+	
 }
 
 
@@ -186,22 +283,19 @@ function calculateTotal(hand, whosTurn){
 	// console.log(whosTurn);
 	var total = 0;
 	var cardValue = 0;
-	var hasAce;
+	var hasAce = false; //init acs as false
 	
 	for(var i = 0; i < hand.length; i++){
 		cardValue = Number(hand[i].slice(0,-1))
 		//account for face cards values
 		if(cardValue > 10){
 			cardValue = 10;
-		}
-		else if((cardValue == 1) 
-			//currenttotal +11<21... its ok for this to be 11
-			&& ((total + 11) <= 21)){
+		}else if((cardValue == 1) && ((total + 11) <= 21)){
 			cardValue = 11;
 			hasAce = true;
-		}else if((total + cardValue >21)
-			&& (hasAce)){
+		}else if((total + cardValue >21) && (hasAce === true)){
 			total -= 10;
+			hasAce = false;
 		}
 		total += cardValue;
 	}
@@ -213,6 +307,9 @@ function calculateTotal(hand, whosTurn){
 
 	return total;
 }
+
+
+
 
 function reset(){
 	//empty the deck
@@ -233,7 +330,9 @@ function reset(){
 	dealersHand = [];
 	var dealersTotal = calculateTotal(dealersHand, 'dealer');
 
-	document.getElementById('message').innerHTML = "Are you feeling lucky, punk?";
+	topOfTheDeck = 4;
+
+	document.getElementById('message').innerHTML = "Are you feeling lucky?";
 
 	var cards = document.getElementsByClassName('card');
 	for(var i=0; i < cards.length; i++){
@@ -242,8 +341,8 @@ function reset(){
 	}
 
 	// reset player and dealer totals
-	document.getElementsByClassName('dealer-total-number').text = 0;
-	document.getElementsByClassName('player-total-number').text = 0;
+	// document.getElementsByClassName('dealer-total-number').text = 0;
+	// document.getElementsByClassName('player-total-number').text = 0;
 
 	// reset buttons
 	var buttons = document.getElementsByClassName("button");
@@ -251,4 +350,9 @@ function reset(){
 		buttons[i].classList.remove('hidden');
 		buttons[i].classList.add('active');	
 	}
+
+	$('.bet-amount').text('0');
+	bet = 0;
+
+	$('.subtract-button-20, .subtract-button-10, .subtract-button-5, .subtract-button-1, .add-balance-20, .add-balance-5, .add-balance-10, .add-balance-1').show();
 }
