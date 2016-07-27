@@ -4,6 +4,8 @@
 	<title>Blackjack</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Galada|Oleo+Script" rel="stylesheet">
+	
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
 </head>
@@ -24,6 +26,11 @@
  -->
 
 <div class="container">
+	
+	<div class="headline">
+		<h1>Blackjack</h1>
+	</div>
+
 	<div class="row">
 		<div class="the-table col-sm-8 col-sm-offset-2">
 			<!-- Deck row -->
@@ -37,8 +44,10 @@
 			<!-- Dealer row -->
 			<div class="row">
 				<div class="col-sm-12 dealer-hand-wrapper">
-				<!-- Dealer total on the left -->
+					<!-- Dealer wins on the left -->
+					<!-- Dealer total on the left -->
 					<div class="col-sm-3 dealer-total">
+						Dealer Wins: <span class="dealer-win-number" id="dealerWin">0</span>
 						Dealer Total: <span class="dealer-total-number">0</span>
 					</div>
 
@@ -70,6 +79,7 @@
 				<div class="col-sm-12 player-hand-wrapper">
 					<!-- Player total on the left -->
 					<div class="col-sm-3 player-total">
+						Player Wins: <span class="player-win-number" id="playerWin">0</span>
 						Player Total: <span class="player-total-number">0</span>
 					</div>
 

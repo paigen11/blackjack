@@ -1,7 +1,7 @@
 // Set messages after game over. - DONE
-// The table/game looks like Rob made it. Change this
+// The table/game looks like Rob made it. Change this - DONE
 // What about those 11, 12, 13s?
-// What about aces?
+// What about aces? - DONE
 // The player can hit forever? - DONE
 // There is no win counter / bet system
 // There is no 'deck' to draw from. - DONE
@@ -9,8 +9,8 @@
 // The cards are lame. Find images. - DONE
 // There is no delay on showing the cards ... it's instant
 // You can see the dealer's second card on deal. That's unfair to the house.
-// make a win counter for dealer / player
-// better message styling
+// make a win counter for dealer / player - DONE
+// better message styling - DONE
 
 // 1. When the user clicks deal, deal.
 var theDeck = [];
@@ -24,7 +24,7 @@ $(document).ready(function(){
 		createDeck();  // run a function that creates an array of 1h to 13c
 		shuffleDeck(); // shuffle the deck
 
-		// remove message
+		// remove reset message
 		document.getElementById('message').innerHTML = "";
 
 		// Push onto the playersHand array the new card. Then, place it in the DOM.
@@ -42,7 +42,8 @@ $(document).ready(function(){
 
 		calculateTotal(playersHand, 'player');
 		calculateTotal(dealersHand, 'dealer');
-	});
+
+	});	
 
 	
 	$('.hit-button').click(function(){
@@ -72,7 +73,6 @@ $(document).ready(function(){
 		// player clicked on stand. What happens to the player? Nothing.
 			var slotForNewCard = "";
 			var dealerTotal = calculateTotal(dealersHand, 'dealer');
-			console.log(dealerTotal);
 			while(dealerTotal < 17){
 				 // dealer has less than 17, hit away!
 				 if(dealersHand.length == 2){
@@ -107,25 +107,31 @@ function checkWin(){
 
 	if(playersTotal === 21){
 		document.getElementById('message').innerHTML = "Blackjack! You win this round!";
+		document.getElementById('playerWin').innerHTML++;
 		// player wins
 	}else if(dealersTotal === 21){
 		document.getElementById('message').innerHTML = "Aw man, the house got blackjack. Time for a new hand.";
+		document.getElementById('dealerWin').innerHTML++;
 		// dealer wins
 	}else if(playersTotal > 21){
 		document.getElementById('message').innerHTML = "Oh, good try, but you went over 21. House wins.";
+		document.getElementById('dealerWin').innerHTML++;
 		// player has busted
 		// set a message somewhere that says this
 	}else if(dealersTotal > 21){
 		document.getElementById('message').innerHTML = "The dealer went over 21, you win!";
+		document.getElementById('playerWin').innerHTML++;
 		// dealer has busted
 		// set a message somewhere that says this
 	}else{
 		// neither player has more than 21
 		if(playersTotal > dealersTotal){
 			document.getElementById('message').innerHTML = "Neither of you have blackjack, but you're closer. That's a win!";
+			document.getElementById('playerWin').innerHTML++;
 			// player won. say this somewhere
 		}else if(dealersTotal > playersTotal){
 			document.getElementById('message').innerHTML = "Neither of you have blackjack, but the dealer's closer. The house wins.";
+		 	document.getElementById('dealerWin').innerHTML++;
 		 	// dealer won. say this somewhere
 		}else{
 			document.getElementById('message').innerHTML = "Looks like nobody won and you tied. Time for a new hand."
@@ -162,7 +168,6 @@ function createDeck(){
 	for(var s=0; s<suits.length; s++){
 		for(var c=1; c<=13; c++){
 			theDeck.push(c+suits[s]);
-			 console.log(theDeck);
 		}
 	}
 }
@@ -178,17 +183,29 @@ function shuffleDeck(){
 }
 
 function calculateTotal(hand, whosTurn){
-	// console.log(hand);
 	// console.log(whosTurn);
 	var total = 0;
 	var cardValue = 0;
+	var hasAce;
+	
 	for(var i = 0; i < hand.length; i++){
 		cardValue = Number(hand[i].slice(0,-1))
+		//account for face cards values
 		if(cardValue > 10){
 			cardValue = 10;
 		}
+		else if((cardValue == 1) 
+			//currenttotal +11<21... its ok for this to be 11
+			&& ((total + 11) <= 21)){
+			cardValue = 11;
+			hasAce = true;
+		}else if((total + cardValue >21)
+			&& (hasAce)){
+			total -= 10;
+		}
 		total += cardValue;
 	}
+	
 
 	// Update the HTML with the new total
 	var elementToUpdate = '.'+whosTurn+'-total-number';

@@ -1,10 +1,26 @@
+body{
+	background-image: url("../images/background.jpg");
+}
+
+h1{
+	color: white;
+	text-align: center;
+	font-family: "Galada", cursive;
+}
+
+.deck-wrapper{
+	padding-bottom: 25px;
+}
+
 .deck-wrapper img{
 	height: 120px;
 	border-radius: 5px;
+	margin-left: 10px;
 }
 
 .the-table{
 	background-color: green;
+	background: linear-gradient(darkgreen, green);
 	border: 5px solid #663300;
 	border-radius: 10px;
 	margin-top: 30px;
@@ -33,11 +49,12 @@
 
 .dealer-total, .player-total{
 	color: white;
-	font-size: 18px;
+	font-size: 22px;
 	text-align: center;
+	font-family: "Galada", cursive;
 }
 
-.dealer-total-number, .player-total-number{
+.dealer-total-number, .player-total-number, .dealer-win-number, .player-win-number{
 	display: block;
 	text-align: center;
 }
@@ -47,12 +64,21 @@
 	text-align: center;
 	height: 30px;
 	width: 100%;
-	background-color: red;
+	background-image: url("../images/rich_background.png");
 	color: white;
+	line-height: 30px;
+	font-family: "Oleo Script", cursive;
+	font-size: 20px;
+}
+
+.player-actions{
+	padding-top: 20px;
 }
 
 .player-actions button{
 	width: 100%;
 	background: black;
 	color: white;
+	font-family: "Oleo Script", cursive;
+
 }
