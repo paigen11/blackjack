@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Galada|Oleo+Script" rel="stylesheet">
-	
+
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
 </head>
@@ -71,6 +71,7 @@
 
 			<div class="col-sm-12 message-wrapper">
 				<div class= "col-sm-12" id="message">
+				Choose your bet and place it before hitting 'Deal'. Good luck!
 				</div>
 			</div>
 
@@ -102,21 +103,51 @@
 			</div> <!-- End player row -->
 
 			<div class="row player-actions">
-				<div class="col-sm-2 col-sm-offest-1">
-					<button class="deal-button button">Deal</button>
+				<div class="col-sm-2 col-sm-offset-1">
+					<button class="deal-button button" disabled>Deal</button>
 				</div>
-				<div class="col-sm-2 col-sm-offest-1">
-					<button class="hit-button button">Hit</button>
+				<div class="col-sm-2 col-sm-offset-1">
+					<button class="hit-button button" disabled>Hit</button>
 				</div>
-				<div class="col-sm-2 col-sm-offest-1">
-					<button class="stand-button button">Stand</button>
+				<div class="col-sm-2 col-sm-offset-1">
+					<button class="stand-button button" disabled>Stand</button>
 				</div>
-				<div class="col-sm-2 col-sm-offest-1">
+				<div class="col-sm-2 col-sm-offset-1">
 					<button class="reset-button">New Game</button>
 				</div>
 			</div> 
 		</div>	
 	</div>
+
+	<div class="row betting-options">
+		<div class="col-sm-7 col-sm-offset-2">
+			<span class="bet-balance">Bet Balance: $ </span>
+		
+			<button class="button add-balance-20">+$20</button> 
+
+			<button class="button add-balance-10">+$10</button>
+
+			<button class="button add-balance-5">+$5</button>
+			
+			<button class="button add-balance-1">+$1</button>
+
+				<span class="bet-amount"> 0</span>
+			
+			<button class="button subtract-button-1">-$1</button>
+
+			<button class="button subtract-button-5">-$5</button>
+
+			<button class="button subtract-button-10">-$10</button>
+
+			<button class="button subtract-button-20">-$20</button>
+				
+			<button class="bet-button">Bet</button>
+		</div>
+		<div class=	"col-sm-2 ">
+			<span class="bank">Bank: $</span>
+			<span class="bank-balance">100</span>
+		</div>
+	</div>	
 </div>
 
 </body>
