@@ -29,16 +29,24 @@ $(document).ready(function(){
 
 		// Push onto the playersHand array the new card. Then, place it in the DOM.
 		playersHand.push(theDeck[0]);
-		placeCard('player', 'one', theDeck[0]);
+		setTimeout(function(){
+			placeCard('player', 'one', theDeck[0]);
+		}, 500);
 		
 		playersHand.push(theDeck[2]);
-		placeCard('player', 'two', theDeck[2]);
+		setTimeout(function(){
+			placeCard('player', 'two', theDeck[2]);
+		}, 1000);
 		
 		dealersHand.push(theDeck[1]);
-		placeCard('dealer', 'one', theDeck[1]);
+		setTimeout(function(){
+			placeCard('dealer', 'one', theDeck[1]);
+		}, 1500);	
 		
 		dealersHand.push(theDeck[3]);
-		placeCard('dealer', 'two', theDeck[3]);
+		setTimeout(function(){
+			placeCard('dealer', 'two', theDeck[3]);
+		}, 2000);
 
 		calculateTotal(playersHand, 'player');
 		calculateTotal(dealersHand, 'dealer');
@@ -58,14 +66,16 @@ $(document).ready(function(){
 			}else if(playersHand.length == 5){
 				slotForNewCard = "six";
 			}
-			placeCard('player', slotForNewCard, theDeck[topOfTheDeck]);
-			playersHand.push(theDeck[topOfTheDeck]);
-			var playersTotal = calculateTotal(playersHand, 'player');
-			topOfTheDeck++;
-			
-			if((playersTotal > 21) || (playersTotal === 21)){
-				checkWin();
-			}
+			setTimeout(function(){
+				placeCard('player', slotForNewCard, theDeck[topOfTheDeck]);
+				playersHand.push(theDeck[topOfTheDeck]);
+				var playersTotal = calculateTotal(playersHand, 'player');
+				topOfTheDeck++;
+				
+				if((playersTotal > 21) || (playersTotal === 21)){
+					checkWin();
+				}
+			}, 500);
 		}
 	);
 	
@@ -88,9 +98,9 @@ $(document).ready(function(){
 				 dealersHand.push(theDeck[topOfTheDeck]);
 				 dealerTotal = calculateTotal(dealersHand, 'dealer');
 				 topOfTheDeck++;
-			}
 			// Dealer has at least 17. Check to see who won
-			checkWin();
+		}
+		checkWin();		
 	});
 
 	$('.reset-button').click(function(){
@@ -152,8 +162,6 @@ function disableAllBtns(){
 
 function placeCard(who, where, cardToPlace){
 	var classSelector = '.'+who+'-cards .card-'+where;
-	
-	// Write logic to fix the 11, 12, 13 issue
 	var cardImages = '<img src="images/'+cardToPlace+'.png">';
 	$(classSelector).html(cardImages);
 }
@@ -186,22 +194,19 @@ function calculateTotal(hand, whosTurn){
 	// console.log(whosTurn);
 	var total = 0;
 	var cardValue = 0;
-	var hasAce;
+	var hasAce = false; //init acs as false
 	
 	for(var i = 0; i < hand.length; i++){
 		cardValue = Number(hand[i].slice(0,-1))
 		//account for face cards values
 		if(cardValue > 10){
 			cardValue = 10;
-		}
-		else if((cardValue == 1) 
-			//currenttotal +11<21... its ok for this to be 11
-			&& ((total + 11) <= 21)){
+		}else if((cardValue == 1) && ((total + 11) <= 21)){
 			cardValue = 11;
 			hasAce = true;
-		}else if((total + cardValue >21)
-			&& (hasAce)){
+		}else if((total + cardValue >21) && (hasAce = true)){
 			total -= 10;
+			hasAce = false;
 		}
 		total += cardValue;
 	}
@@ -233,7 +238,9 @@ function reset(){
 	dealersHand = [];
 	var dealersTotal = calculateTotal(dealersHand, 'dealer');
 
-	document.getElementById('message').innerHTML = "Are you feeling lucky, punk?";
+	topOfTheDeck = 4;
+
+	document.getElementById('message').innerHTML = "Are you feeling lucky?";
 
 	var cards = document.getElementsByClassName('card');
 	for(var i=0; i < cards.length; i++){
@@ -242,8 +249,8 @@ function reset(){
 	}
 
 	// reset player and dealer totals
-	document.getElementsByClassName('dealer-total-number').text = 0;
-	document.getElementsByClassName('player-total-number').text = 0;
+	// document.getElementsByClassName('dealer-total-number').text = 0;
+	// document.getElementsByClassName('player-total-number').text = 0;
 
 	// reset buttons
 	var buttons = document.getElementsByClassName("button");
