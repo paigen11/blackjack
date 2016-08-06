@@ -190,23 +190,23 @@ function checkWin(){
 	
 
 	if(playersTotal === 21){
-		document.getElementById('message').innerHTML = "Blackjack! You win this round!";
-		document.getElementById('playerWin').innerHTML++;
+		$('#message').html("Blackjack! You win this round!");
+		$('#playerWin').html(+1);
 		balance += bet + bet;
 		$('.bank-balance').text(balance);
 		// player wins
 	}else if(dealersTotal === 21){
-		document.getElementById('message').innerHTML = "Aw man, the house got blackjack. Time for a new hand.";
-		document.getElementById('dealerWin').innerHTML++;
+		$('#message').html("Aw man, the house got blackjack. Time for a new hand.");
+		$('#dealerWin').html(+1);
 		// dealer wins
 	}else if(playersTotal > 21){
-		document.getElementById('message').innerHTML = "Oh, good try, but you went over 21. House wins.";
-		document.getElementById('dealerWin').innerHTML++;
+		$('#message').html("Oh, good try, but you went over 21. House wins.");
+		$('#dealerWin').html(+1);
 		// player has busted
 		// set a message somewhere that says this
 	}else if(dealersTotal > 21){
-		document.getElementById('message').innerHTML = "The dealer went over 21, you win!";
-		document.getElementById('playerWin').innerHTML++;
+		$('#message').html("The dealer went over 21, you win!");
+		$('#playerWin').html(+1);
 		balance += bet + bet;
 		$('.bank-balance').text(balance);
 		// dealer has busted
@@ -214,17 +214,17 @@ function checkWin(){
 	}else{
 		// neither player has more than 21
 		if(playersTotal > dealersTotal){
-			document.getElementById('message').innerHTML = "Neither of you have blackjack, but you're closer. That's a win!";
-			document.getElementById('playerWin').innerHTML++;
+			$('#message').html("Neither of you have blackjack, but you're closer. That's a win!");
+			$('#playerWin').html(+1);
 			balance += bet + bet;
 		$('.bank-balance').text(balance);
 			// player won. say this somewhere
 		}else if(dealersTotal > playersTotal){
-			document.getElementById('message').innerHTML = "Neither of you have blackjack, but the dealer's closer. The house wins.";
-		 	document.getElementById('dealerWin').innerHTML++;
+		 	$('#message').html("Neither of you have blackjack, but the dealer's closer. The house wins.");
+		 	$('#dealerWin').html(+1);
 		 	// dealer won. say this somewhere
 		}else{
-			document.getElementById('message').innerHTML = "Looks like nobody won and you tied. Time for a new hand."
+			$('#message').html("Looks like nobody won and you tied. Time for a new hand.");
 			// push. tie. say this somewhere
 		}
 	}
@@ -242,16 +242,12 @@ function disableAllBtns(){
 
 function placeCard(who, where, cardToPlace){
 	var classSelector = '.'+who+'-cards .card-'+where;
-
 	var cardImages = '<img src="images/'+cardToPlace+'.png">';
 	
 	// $(classSelector).html(cardImages);
 	$(classSelector).delay(200).fadeOut(500, function(){
 		$(this).html(cardImages).fadeIn(500);
 	})
-	// $(classSelector).setTimeout(function(){addClass("appear") 500});
-	// $(classSelector).addClass("appear");
-
 	
 }
 
@@ -307,9 +303,6 @@ function calculateTotal(hand, whosTurn){
 
 	return total;
 }
-
-
-
 
 function reset(){
 	//empty the deck
