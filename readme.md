@@ -35,7 +35,8 @@ If either the player or dealer gets or goes over 21, the message system is updat
 
 ##Code Examples
 --------
-'''JavaScript for randomly shuffling deck
+JavaScript for randomly shuffling deck
+'''
 function shuffleDeck(){
 	for(var i = 1; i<1000; i++){
 		card1 = Math.floor(Math.random() * theDeck.length);
@@ -47,7 +48,8 @@ function shuffleDeck(){
 }
 '''
 
-'''jQuery for "stand" button
+jQuery for "stand" button
+'''
 	$('.stand-button').click(function(){
 		// player clicked on stand. What happens to the player? Nothing.
 			var slotForNewCard = "";
