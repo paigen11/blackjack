@@ -4,10 +4,10 @@ BlackJack game setup with Bootstrap and utilizing jQuery/Javascript, HTML and CS
 
 ##Languages used:
 -------
-*HTML
-*CSS
-*Native JavaScript
-*jQuery
+  * HTML
+  * CSS
+  * Native JavaScript
+  * jQuery
 
 ##Link to Github documents
 -------
@@ -36,7 +36,7 @@ If either the player or dealer gets or goes over 21, the message system is updat
 ##Code Examples
 --------
 JavaScript for randomly shuffling deck
-```
+```javascript
 function shuffleDeck(){
 	for(var i = 1; i<1000; i++){
 		card1 = Math.floor(Math.random() * theDeck.length);
@@ -49,7 +49,7 @@ function shuffleDeck(){
 ```
 
 jQuery for "stand" button
-```
+```javascript
 	$('.stand-button').click(function(){
 		// player clicked on stand. What happens to the player? Nothing.
 			var slotForNewCard = "";
