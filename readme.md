@@ -2,7 +2,11 @@
 -------
 BlackJack game setup with Bootstrap and utilizing jQuery/Javascript, HTML and CSS. The Javascript has three primary buttons: deal, hit and stand, and the player can bet money before each round using the betting buttons at the bottom of the screen. 
 
-##Languages used:
+##Live Demo
+---
+[Live demo](http://paigeniedringhaus.com/blackjack/)
+
+##Languages used
 -------
   * HTML
   * CSS
