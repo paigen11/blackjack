@@ -89,7 +89,10 @@ $(document).ready(function(){
 	});
 
 	$('.deal-button').click(function(){
-		if(betSubmit == true){
+		if(betSubmit == false){
+			document.getElementById('message').innerHTML = "Please place a bet first.";
+		}
+		else if(betSubmit == true){
 			createDeck();  // run a function that creates an array of 1h to 13c
 			shuffleDeck(); // shuffle the deck
 
@@ -333,16 +336,14 @@ function reset(){
 		cards[i].innerHTML = " ";
 	}
 
-	// reset player and dealer totals
-	// document.getElementsByClassName('dealer-total-number').text = 0;
-	// document.getElementsByClassName('player-total-number').text = 0;
-
 	// reset buttons
 	var buttons = document.getElementsByClassName("button");
 	for(var i = 0; i < buttons.length; i++){
 		buttons[i].classList.remove('hidden');
 		buttons[i].classList.add('active');	
 	}
+
+	betSubmit = false;
 
 	$('.bet-amount').text('0');
 	bet = 0;
