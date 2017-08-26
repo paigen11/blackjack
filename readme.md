@@ -4,7 +4,7 @@ BlackJack game setup with Bootstrap and utilizing jQuery/Javascript, HTML and CS
 
 ##Live Demo
 ---
-[Live demo](http://paigeniedringhaus.com/blackjack/)
+[Live demo](http://pn-blackjack.surge.sh)
 
 ##Languages used
 -------
