@@ -1,27 +1,27 @@
-#What is it?
+What is it?
 -------
 BlackJack game setup with Bootstrap and utilizing jQuery/Javascript, HTML and CSS. The Javascript has three primary buttons: deal, hit and stand, and the player can bet money before each round using the betting buttons at the bottom of the screen. 
 
-##Live Demo
+Live Demo
 ---
 [Live demo](http://pn-blackjack.surge.sh)
 
-##Languages used
+Languages used
 -------
   * HTML
   * CSS
   * Native JavaScript
   * jQuery
 
-##Link to Github documents
+Link to Github documents
 -------
 [Github](https://github.com/paigen11/blackjack.git)
 
-##Authors
+Authors
 -------
 Paige Niedringhaus
 
-##Screenshots
+Screenshots
 --------
 ![alt text](https://github.com/paigen11/blackjack/blob/master/screenshots/blackjack-shot1.png "blackjack-shot1.png")
 
@@ -29,7 +29,7 @@ Paige Niedringhaus
 
 ![alt text](https://github.com/paigen11/blackjack/blob/master/screenshots/blackjack-shot3.png "blackjack-shot3.png")
 
-##Further Game Info
+Further Game Info
 --------
 The deal, hit and stand buttons are disabled until the player places a bet using some of the money in the bank. Once the bet's been placed the buttons to increase or decrease the bet are disabled until a new hand is dealt.
 
@@ -37,7 +37,7 @@ The dealer and player both have hands of cards which are dealt out randomly usin
 
 If either the player or dealer gets or goes over 21, the message system is updated accordingly in the middle of the table, telling them so. If the player wins, the winning bet is added to the bank and the "wins" count is updated accordingly. At this point, the deal, stand and hit buttons are all disabled and the player must click the "New Game" button to start the next hand.
 
-##Code Examples
+Code Examples
 --------
 JavaScript for randomly shuffling deck
 ```javascript
